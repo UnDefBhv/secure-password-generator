@@ -1,6 +1,6 @@
 # Secure Password Generator
 
-A secure password generator built with Python and the `secrets` module. It generates strong passwords using cryptographically secure randomness.
+A secure password generator built with Python and the `secrets` module. It generates strong passwords using cryptographically secure randomness and checks whether the generated password has appeared in known data breaches.
 
 ## Features
 
@@ -11,10 +11,14 @@ A secure password generator built with Python and the `secrets` module. It gener
 * Special characters
 * Minimum length validation
 * Uses Python's `secrets` module instead of `random`
+* Checks generated passwords against known data breaches
+* Uses the Have I Been Pwned Pwned Passwords API
+* Uses k-anonymity to avoid sending the complete password or hash
 
 ## Requirements
 
 * Python 3.8 or newer
+* Internet connection for breach checking
 
 ## Usage
 
@@ -38,22 +42,30 @@ Password length: 16
 
 Generated password:
 x7!Kp2@Lm9#Qa4$Z
+
+This password was not found in known breaches.
 ```
 
-## How it works
+If the generated password has appeared in known breaches:
 
-The program first generates one character from each required character set:
+```text
+Warning: this password has appeared in 12 breaches.
+```
 
-* Lowercase letters
-* Uppercase letters
-* Numbers
-* Special characters
+## Technologies
 
-It then fills the remaining positions and securely shuffles the characters before displaying the final password.
+* Python
+* `secrets`
+* `string`
+* `hashlib`
+* `urllib.request`
+* Have I Been Pwned Pwned Passwords API
 
 ## Security
 
 The project uses Python's `secrets` module, which is designed for generating cryptographically strong random values.
+
+The generated password is hashed locally using SHA-1 before the breach check. Only the first 5 characters of the hash are sent to the Pwned Passwords API using k-anonymity.
 
 The generated passwords are not stored in files or databases.
 
