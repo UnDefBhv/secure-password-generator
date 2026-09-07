@@ -28,7 +28,7 @@ cd secure-password-generator
 Run the program:
 
 ```bash
-python password_generator.py
+python3 password_generator.py
 ```
 
 Enter the desired password length:
